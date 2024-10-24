@@ -41,7 +41,7 @@ const Header = ({toggleMenu,settoggleMenu}) => {
     <>
         <header className='flex bg-header items-center justify-between px-5 md:px-10'>
             <FaBars className='md:size-7 text-white cursor-pointer' onClick={() => settoggleMenu(!toggleMenu)}/>
-            <div className='flex items-center'>
+            <div className='flex pl-7 md:pl-0 items-center'>
                 <h1 className='text-xl font-bold text-white'>TPMS 4.0</h1>
                 <img className='w-24 md:w-28' src={logoImg} alt="logo" />
             </div>
