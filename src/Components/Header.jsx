@@ -3,38 +3,50 @@ import { FaBars } from "react-icons/fa";
 import logoImg from "../assets/logo.png";
 import { IoClose } from "react-icons/io5";
 import { MdOutlineAccountCircle } from "react-icons/md";
-
+import { Link } from 'react-router-dom';
 
 const Header = ({toggleMenu,settoggleMenu}) => {
     
     const sidenav = [
         {
+            id: 0,
+            name: "Home",
+            link: "/"
+        },
+        {
             id: 1,
-            name: "Temperature History"
+            name: "Pressure History",
+            link: "/pressurehistory"
         },
         {
             id: 2,
-            name: "Load History"
+            name: "Temperature History",
+            link: "/temphistory"  
         },
         {
             id: 3,
-            name: "Speed History"
+            name: "Load History",
+            link: "/loadhistory"  
         },
         {
             id: 4,
-            name: "Heat/Cut resistance balance History"
+            name: "Speed History",
+            link: "/speedhistory"  
         },
         {
             id: 5,
-            name: "Pressure History"
+            name: "Heat/Cut resistance balance History",
+            link: "/heathistory"  
         },
         {
             id: 6,
-            name: "Past alerts"
+            name: "Past alerts",
+            link: "/pastalerts"
         },
         {
             id: 7,
-            name: "Help"
+            name: "Help",
+            link: "/help"  
         }
     ]
   return (
@@ -51,7 +63,7 @@ const Header = ({toggleMenu,settoggleMenu}) => {
             <IoClose className='size-7 absolute right-6 cursor-pointer' onClick={() => settoggleMenu(!toggleMenu)}/>
             <ul className='list-disc pt-24'>
                 {sidenav.map((element,index) => (
-                        <li className='pb-6 cursor-pointer text-base font-semibold md:text-lg' key={index}>{element.name}</li>
+                        <li className='pb-6 cursor-pointer text-base font-semibold md:text-lg' onClick={() =>settoggleMenu(!toggleMenu)} key={index}><Link to={element.link}>{element.name}</Link></li>
                     ))}
             </ul>
         </nav>}

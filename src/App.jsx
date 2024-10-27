@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Components/Header'
-import Title from './Components/Title'
 import Home from './Components/Home'
+import { Route, Routes } from 'react-router-dom'
+import Pressure_history from './Components/nav/Pressure_history'
+import PastAlerts from './Components/nav/PastAlerts'
+import Temperature_History from './Components/nav/Temperature_History'
+import Load_History from './Components/nav/Load_History'
+import Help from './Components/nav/Help'
+import Heat_History from './Components/nav/Heat_History'
+import Speed_History from './Components/nav/Speed_History'
 
 const App = () => {
   const [toggleMenu,settoggleMenu] = useState(false)
@@ -14,6 +21,24 @@ const App = () => {
   const [topTKPH,settopTKPH] = useState(0)
   const [bottomTKPH,setbottomTKPH] = useState(0)
 
+  //pressure history
+  const [aPressure,setaPressure] = useState(0)
+  const [bPressure,setbPressure] = useState(0)
+  const [cPressure,setcPressure] = useState(0)
+  const [dPressure,setdPressure] = useState(0)
+
+  //pressure history
+  const [aTemp,setaTemp] = useState(0)
+  const [bTemp,setbTemp] = useState(0)
+  const [cTemp,setcTemp] = useState(0)
+  const [dTemp,setdTemp] = useState(0)
+
+  // time or date for graph
+  const [aTime,setaTime] = useState("")
+  const [bTime,setbTime] = useState("")
+  const [cTime,setcTime] = useState("")
+  const [dTime,setdTime] = useState("")
+  
   // meanload - 50-250tons
   // speed - 10-35km/hr
   
@@ -46,9 +71,29 @@ const App = () => {
         console.log("ERROR IN FETCH")
       }
       const data = await response.json()
+      //these three data for graph
       const lastData = data.values[data.values.length-1]
       const value = lastData[1]
       const pressureValue = Math.round(value.slice(0,5))           //setting pressure
+      
+      //these are last seven values of pressure used for graph purpose
+      setaPressure(data.values[data.values.length-1][1].slice(0,5))
+      setbPressure(data.values[data.values.length-2][1].slice(0,5))
+      setcPressure(data.values[data.values.length-3][1].slice(0,5))
+      setdPressure(data.values[data.values.length-4][1].slice(0,5))
+
+      //these are last seven values of Temperature used for graph purpose
+      setaTemp(data.values[data.values.length-1][1].slice(11,16))
+      setbTemp(data.values[data.values.length-2][1].slice(11,16))
+      setcTemp(data.values[data.values.length-3][1].slice(11,16))
+      setdTemp(data.values[data.values.length-4][1].slice(11,16))
+
+      //time or date for graph
+      setaTime(data.values[data.values.length-1][0].slice(11,19))
+      setbTime(data.values[data.values.length-2][0].slice(11,19))
+      setcTime(data.values[data.values.length-3][0].slice(11,19))
+      setdTime(data.values[data.values.length-4][0].slice(11,19))
+
       const tempValue = value.slice(11,16)                         //setting temperature
       const pressureInPercentage = (pressureValue / 20) * 100      //setting percentage for pressure
       // console.log(lastData)
@@ -66,11 +111,19 @@ const App = () => {
   },[])
 
   return (
-    <div>
+    <>
       <Header toggleMenu={toggleMenu} settoggleMenu={settoggleMenu} />
-      <Title />
-      <Home toggleMenu={toggleMenu} percentage={percentage} pressure={pressure} temp={temp} topMeanLoad={topMeanLoad} bottomMeanLoad={bottomMeanLoad} speed={speed} topTKPH={topTKPH} bottomTKPH={bottomTKPH} />
-    </div>
+      <Routes>
+        <Route path='/' element={<Home toggleMenu={toggleMenu} percentage={percentage} pressure={pressure} temp={temp} topMeanLoad={topMeanLoad} bottomMeanLoad={bottomMeanLoad} speed={speed} topTKPH={topTKPH} bottomTKPH={bottomTKPH} />} />
+        <Route path='/pressurehistory' element={<Pressure_history toggleMenu={toggleMenu} aPressure={aPressure} bPressure={bPressure} cPressure={cPressure} dPressure={dPressure} aTime={aTime} bTime={bTime} cTime={cTime} dTime={dTime} />} />
+        <Route path='/temphistory' element={<Temperature_History toggleMenu={toggleMenu} aTemp={aTemp} bTemp={bTemp} cTemp={cTemp} dTemp={dTemp} aTime={aTime} bTime={bTime} cTime={cTime} dTime={dTime} />} />
+        <Route path='/pastalerts' element={<PastAlerts />} />
+        <Route path='/loadhistory' element={<Load_History />} />
+        <Route path='/help' element={<Help />} />
+        <Route path='/heathistory' element={<Heat_History />} />
+        <Route path='/speedhistory' element={<Speed_History />} />
+      </Routes>
+    </>
   )
 }
 
