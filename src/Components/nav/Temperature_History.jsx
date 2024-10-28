@@ -58,23 +58,28 @@ const Temperature_History = ({ toggleMenu, aTemp , bTemp , cTemp , dTemp , aTime
 
   return (
   <>
-    {!toggleMenu && <section className='grid pr-5 md:pt-10 grid-cols-1 md:grid-cols-3 gap-y-10 pb-20'>
-      {items.map((element) =>(
-        <div className='md:w-[500px] text-center pt-10'>
-        <h1 className='text-2xl pl-5 font-bold text-white'>{element.tyre}</h1>
-        <ResponsiveContainer height={300}>
-          <LineChart width={450} height={300} data={element.name} margin={{top: 30}}>
-              <CartesianGrid strokeDasharray="5 5" />
-              <XAxis dataKey="label" />
-              <YAxis />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend />
-              <Line type="monotone" dataKey="Temperature" stroke='white' />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-      ))}
-    </section>}
+    {!toggleMenu && 
+      <>
+        <h1 className='text-[#FFD272] text-center pt-10 font-bold text-4xl'>Temperature History</h1>
+        <section className='grid pr-5 md:pt-5 grid-cols-1 md:grid-cols-3 gap-y-10 pb-20'>
+          {items.map((element) =>(
+            <div className='md:w-[500px] text-center pt-10'>
+            <h1 className='text-2xl pl-5 font-bold text-white'>{element.tyre}</h1>
+            <ResponsiveContainer height={300}>
+              <LineChart width={450} height={300} data={element.name} margin={{top: 30}}>
+                  <CartesianGrid strokeDasharray="5 5" />
+                  <XAxis dataKey="label" />
+                  <YAxis />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend />
+                  <Line type="monotone" dataKey="Temperature" stroke='white' />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          ))}
+        </section>
+      </>
+    }
   </>
   )
 }
