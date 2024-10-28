@@ -59,6 +59,7 @@ const Header = ({toggleMenu,settoggleMenu}) => {
             </div>
             <MdOutlineAccountCircle className='size-7 md:size-9 text-white cursor-pointer' />
         </header>
+        
         {toggleMenu && <nav className='text-white fixed bottom-0 top-0 left-0 shadow-lg shadow-black  bg-header w-64 md:w-96 md:px-16 px-10 py-5'>
             <IoClose className='size-7 absolute right-6 cursor-pointer' onClick={() => settoggleMenu(!toggleMenu)}/>
             <ul className='list-disc pt-24'>
