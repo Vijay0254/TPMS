@@ -61,7 +61,7 @@ const Pressure_history = ({ toggleMenu, aPressure , bPressure , cPressure , dPre
     {!toggleMenu && <section className='grid pr-5 md:pt-10 grid-cols-1 md:grid-cols-3 gap-y-10 pb-20'>
       {items.map((element) =>(
         <div className='md:w-[500px] text-center pt-10'>
-        <h1 className='text-2xl pl-5 font-bold text-white'>Front Left Tyre</h1>
+        <h1 className='text-2xl pl-5 font-bold text-white'>{element.tyre}</h1>
         <ResponsiveContainer height={300}>
           <LineChart width={450} height={300} data={element.name} margin={{top: 30}}>
               <CartesianGrid strokeDasharray="5 5" />
